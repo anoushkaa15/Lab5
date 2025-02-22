@@ -19,8 +19,16 @@ jobs:
         run: |
           pip install numpy pandas scikit-learn jupyter nbconvert opencv-python matplotlib scipy
 
+      - name: List files before running
+        run: |
+          echo "Current directory: $(pwd)"
+          echo "Files in the repo:"
+          ls -R
+
       - name: Convert Jupyter Notebook to Python script
-        run: jupyter nbconvert --to script Anoushka_Lab5.ipynb
+        run: |
+          jupyter nbconvert --to script Anoushka_Lab5.ipynb
+          mv Anoushka_Lab5.txt Anoushka_Lab5.py || true  # In case the conversion renames it differently
 
       - name: Run the converted Python script
         run: python Anoushka_Lab5.py
