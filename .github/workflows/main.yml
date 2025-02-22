@@ -1,9 +1,9 @@
-name: Run Tests
+name: Run Jupyter Notebook
 
 on: [push]
 
 jobs:
-  test:
+  run_notebook:
     runs-on: ubuntu-latest
 
     steps:
@@ -17,7 +17,10 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install numpy pandas scikit-learn
+          pip install numpy pandas scikit-learn jupyter nbconvert opencv-python matplotlib scipy
 
-      - name: Run test script
-        run: python test_script.py
+      - name: Convert Jupyter Notebook to Python script
+        run: jupyter nbconvert --to script Anoushka_Lab5.ipynb
+
+      - name: Run the converted Python script
+        run: python Anoushka_Lab5.py
