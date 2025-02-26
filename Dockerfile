@@ -1,14 +1,17 @@
-# Use official Python image
-FROM python:3.12
+# Use the official Python 3.11 image
+FROM python:3.11
 
-# Set the working directory
+# Set the working directory inside the container
 WORKDIR /app
 
-# Copy files into container
-COPY . /app
+# Copy all files from the current directory into the container
+COPY . .
 
-# Install required packages
-RUN pip install -r requirements.txt
+# Install required dependencies
+RUN pip install opencv-python numpy matplotlib scikit-learn scipy jupyter
 
-# Command to run Jupyter Notebook
-CMD ["jupyter", "notebook", "--ip=0.0.0.0", "--port=8888", "--allow-root"]
+# Expose the Jupyter Notebook port
+EXPOSE 8888
+
+# Command to start Jupyter Notebook
+CMD ["jupyter", "notebook", "--ip=0.0.0.0", "--port=8888", "--allow-root", "--NotebookApp.token=''"]
